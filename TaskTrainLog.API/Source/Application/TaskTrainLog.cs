@@ -24,7 +24,8 @@ public class TaskTrainLog : ITTApp
             services.AddAuthorization();
             services.AddSwaggerGenAuth();
             services.AddControllers();
-            services.AddLogListner();
+            /* central entry for rabbit messages (last parameter Action is enrty for ALL messages from ALL serivces) */
+            services.AddRabbitMQSubscriber("localhost", PublishRegestry.Logger, LogFunnel.OnLogMessageRecived);
         }
 
         public void Configure(IApplicationBuilder builder, IWebHostEnvironment env)
